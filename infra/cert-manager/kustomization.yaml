@@ -1,0 +1,9 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- namespace.yaml
+- release.yaml
+- repository.yaml
+- https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.crds.yaml
+- clusterissuer.yaml
