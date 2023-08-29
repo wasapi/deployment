@@ -24,6 +24,11 @@ data:
     birdseye:
       enabled: True
       mode: continuous
+    ffmpeg:
+      hwaccel_args: preset-vaapi
+      input_args: -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -flags low_delay -strict experimental -analyzeduration 1000M -probesize 1000M -rw_timeout 5000000
+      output_args:
+        record: preset-record-generic-audio-aac
     go2rtc:
       streams:
         entree1_camera:
@@ -49,8 +54,6 @@ data:
     cameras:
       entree1:
         ffmpeg:
-          hwaccel_args: preset-vaapi
-          input_args: preset-rtsp-restream
           inputs:
             - path: rtsp://127.0.0.1:8554/entree1_camera?video=copy&audio=aac
               roles:
@@ -107,8 +110,6 @@ data:
               mode: active_objects
       entree2:
         ffmpeg:
-          hwaccel_args: preset-vaapi
-          input_args: preset-rtsp-restream
           inputs:
             - path: rtsp://127.0.0.1:8554/entree2_camera?video=copy&audio=aac
               roles:
@@ -182,8 +183,6 @@ data:
               mode: active_objects
       jardin1:
         ffmpeg:
-          hwaccel_args: preset-vaapi
-          input_args: preset-rtsp-restream
           inputs:
             - path: rtsp://127.0.0.1:8554/jardin1_camera?video=copy&audio=aac
               roles:
@@ -256,8 +255,6 @@ data:
               mode: active_objects
       jardin2:
         ffmpeg:
-          hwaccel_args: preset-vaapi
-          input_args: preset-rtsp-restream
           inputs:
             - path: rtsp://127.0.0.1:8554/jardin2_camera?video=copy&audio=aac
               roles:
@@ -341,8 +338,6 @@ data:
         birdseye:
           mode: objects
         ffmpeg:
-          hwaccel_args: preset-vaapi
-          input_args: preset-rtsp-restream
           inputs:
             - path: rtsp://127.0.0.1:8554/terrasse_camera?video=copy&audio=aac
               roles:
