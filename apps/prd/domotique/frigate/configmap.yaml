@@ -29,36 +29,14 @@ data:
       input_args: -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -flags low_delay -strict experimental -analyzeduration 1000M -probesize 1000M -rw_timeout 5000000
       output_args:
         record: preset-record-generic-audio-aac
-    go2rtc:
-      streams:
-        entree1_camera:
-          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
-        entree1_camera_sub:
-          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
-        entree2_camera:
-          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
-        entree2_camera_sub:
-          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
-        jardin1_camera:
-          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
-        jardin1_camera_sub:
-          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
-        jardin2_camera:
-          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
-        jardin2_camera_sub:
-          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
-        terrasse_camera:
-          - "ffmpeg:http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
-        terrasse_camera_sub:
-          - "ffmpeg:http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
     cameras:
       entree1:
         ffmpeg:
           inputs:
-            - path: rtsp://127.0.0.1:8554/entree1_camera?video=copy&audio=aac
+            - path: http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - record
-            - path: rtsp://127.0.0.1:8554/entree1_camera_sub?video=copy
+            - path: http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - detect
         detect:
@@ -111,10 +89,10 @@ data:
       entree2:
         ffmpeg:
           inputs:
-            - path: rtsp://127.0.0.1:8554/entree2_camera?video=copy&audio=aac
+            - path: http://192.168.1.31/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - record
-            - path: rtsp://127.0.0.1:8554/entree2_camera_sub?video=copy
+            - path: http://192.168.1.31/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - detect
         detect:
@@ -184,10 +162,10 @@ data:
       jardin1:
         ffmpeg:
           inputs:
-            - path: rtsp://127.0.0.1:8554/jardin1_camera?video=copy&audio=aac
+            - path: http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - record
-            - path: rtsp://127.0.0.1:8554/jardin1_camera_sub?video=copy
+            - path: http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - detect
         detect:
@@ -256,10 +234,10 @@ data:
       jardin2:
         ffmpeg:
           inputs:
-            - path: rtsp://127.0.0.1:8554/jardin2_camera?video=copy&audio=aac
+            - path: http://192.168.1.32/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - record
-            - path: rtsp://127.0.0.1:8554/jardin2_camera_sub?video=copy
+            - path: http://192.168.1.32/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - detect
         detect:
@@ -339,10 +317,10 @@ data:
           mode: objects
         ffmpeg:
           inputs:
-            - path: rtsp://127.0.0.1:8554/terrasse_camera?video=copy&audio=aac
+            - path: http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - record
-            - path: rtsp://127.0.0.1:8554/terrasse_camera_sub?video=copy
+            - path: http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
               roles:
                 - detect
         detect:
