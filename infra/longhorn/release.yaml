@@ -27,3 +27,4 @@ spec:
         storage: "true"
     persistence:
       defaultClassReplicaCount: 2
+      reclaimPolicy: Retain
