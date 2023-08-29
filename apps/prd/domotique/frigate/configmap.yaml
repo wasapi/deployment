@@ -26,7 +26,7 @@ data:
       mode: continuous
     ffmpeg:
       hwaccel_args: preset-vaapi
-      input_args: -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -flags low_delay -strict experimental -analyzeduration 1000M -probesize 1000M
+      input_args: -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -flags low_delay -strict experimental -analyzeduration 1000M -probesize 1000M -rw_timeout "5000000"
       output_args:
         record: preset-record-generic-audio-aac
     cameras:
