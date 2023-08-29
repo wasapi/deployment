@@ -26,6 +26,9 @@ spec:
   values:
     replicaCount: 1
     
+    nodeSelector:
+      storage: "true"
+
     image:
       repository: hardware/rainloop
       tag: latest

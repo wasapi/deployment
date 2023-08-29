@@ -33,6 +33,8 @@ spec:
         volumeMounts:
         - mountPath: "/app"
           name: epee-data
+      nodeSelector:
+        storage: "true"
       volumes:
       - name: nginx-config
         configMap:
