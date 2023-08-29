@@ -10,6 +10,7 @@ spec:
   ref:
     tag: rainloop-1.0.8
 ---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: rainloop
