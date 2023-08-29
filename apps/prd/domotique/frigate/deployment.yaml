@@ -15,6 +15,7 @@ spec:
       labels:
         app: frigate
     spec:
+      nodeName: k8s-01
       containers:
       - image: ghcr.io/blakeblackshear/frigate:0.12.1
         name: frigate
