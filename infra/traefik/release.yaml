@@ -35,7 +35,7 @@ spec:
       effect: "NoSchedule"
     service:
       ipFamilyPolicy: "PreferDualStack"
-      externalIPs:
-      - 37.187.176.189
       spec:
         externalTrafficPolicy: Local
+    nodeSelector:
+      node-role.kubernetes.io/master: true
