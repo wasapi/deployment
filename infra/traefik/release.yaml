@@ -16,10 +16,6 @@ spec:
         namespace: flux-system
       version: v24.0.0
   values:
-    providers:
-      kubernetesIngress:
-        publishedService:
-          enabled: true
     priorityClassName: "system-cluster-critical"
     image:
       repository: "rancher/mirrored-library-traefik"
@@ -37,5 +33,3 @@ spec:
       ipFamilyPolicy: "PreferDualStack"
       spec:
         externalTrafficPolicy: Local
-    nodeSelector:
-      node-role.kubernetes.io/master: "true"
