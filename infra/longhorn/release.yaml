@@ -19,12 +19,12 @@ spec:
     longhornManager:
       nodeSelector:
         storage: "true"
-    #longhornUI:
-    #  nodeSelector:
-    #    storage: "true"
-    #longhornDriver:
-    #  nodeSelector:
-    #    storage: "true"
+    longhornUI:
+      nodeSelector:
+        storage: "true"
+    longhornDriver:
+      nodeSelector:
+        storage: "true"
     persistence:
       defaultClassReplicaCount: 2
       reclaimPolicy: Retain
