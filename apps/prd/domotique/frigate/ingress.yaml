@@ -5,7 +5,7 @@ metadata:
   name: frigate
   namespace: default
   annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: default-frigate-auth@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: domotique-frigate-auth@kubernetescrd
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: traefik
