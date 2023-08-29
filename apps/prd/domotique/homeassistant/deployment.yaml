@@ -36,3 +36,7 @@ spec:
       - name: config
         configMap:
           name: homeassistant
+      dnsConfig:
+        options:
+        - name: ndots
+          value: "1"
