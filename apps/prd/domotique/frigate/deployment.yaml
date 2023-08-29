@@ -39,6 +39,8 @@ spec:
         env:
         - name: TZ
           value: "Europe/Paris"
+        securityContext:
+          privileged: true
       volumes:
       - name: frigate
         persistentVolumeClaim:
