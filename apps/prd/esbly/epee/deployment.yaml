@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: epee
+spec:
+  selector:
+    matchLabels:
+      app: epee
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: epee
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.18
+        ports:
+        - containerPort: 80
+          protocol: TCP
+          name: http
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - mountPath: "/app"
+          name: epee-data
+      - name: php-fpm
+        image: bitnami/php-fpm:5.6.40-prod
+        volumeMounts:
+        - mountPath: "/app"
+          name: epee-data
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+      - name: epee-data
+        persistentVolumeClaim:
+          claimName: epee-data
