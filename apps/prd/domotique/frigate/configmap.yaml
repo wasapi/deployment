@@ -12,6 +12,7 @@ data:
     cameras:
       entree1:
         ffmpeg:
+          hwaccel_args: preset-vaapi
           input_args:
             - -avoid_negative_ts
             - make_zero
@@ -85,6 +86,7 @@ data:
               mode: active_objects
       entree2:
         ffmpeg:
+          hwaccel_args: preset-vaapi
           input_args:
             - -avoid_negative_ts
             - make_zero
@@ -175,6 +177,7 @@ data:
               mode: active_objects
       jardin1:
         ffmpeg:
+          hwaccel_args: preset-vaapi
           input_args:
             - -avoid_negative_ts
             - make_zero
@@ -264,6 +267,7 @@ data:
               mode: active_objects
       jardin2:
         ffmpeg:
+          hwaccel_args: preset-vaapi
           input_args:
             - -avoid_negative_ts
             - make_zero
@@ -362,6 +366,7 @@ data:
               mode: active_objects
       terrasse:
         ffmpeg:
+          hwaccel_args: preset-vaapi
           input_args:
             - -avoid_negative_ts
             - make_zero
