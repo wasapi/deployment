@@ -10,18 +10,18 @@ spec:
   ref:
     tag: rainloop-1.0.8
 ---
-apiVersion: source.toolkit.fluxcd.io/v1beta2
-kind: HelmChart
+kind: HelmRelease
 metadata:
   name: rainloop
   namespace: mail
 spec:
-  chart: ./charts/rainloop
-  sourceRef:
-    name: rainloop
-    kind: GitRepository
   interval: 10m
-  reconcileStrategy: Revision
+  chart:
+    spec:
+      chart: charts/rainloop
+      sourceRef:
+        kind: GitRepository
+        name: rainloop
   values:
     replicaCount: 1
     
