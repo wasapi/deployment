@@ -21,6 +21,9 @@ data:
       input_tensor: nhwc
       input_pixel_format: bgr
       labelmap_path: /openvino-model/coco_91cl_bkgr.txt
+    birdseye:
+      enabled: True
+      mode: continuous
     cameras:
       entree1:
         ffmpeg:
@@ -377,6 +380,8 @@ data:
               default: 5
               mode: active_objects
       terrasse:
+        birdseye:
+          mode: objects
         ffmpeg:
           hwaccel_args: preset-vaapi
           input_args:
