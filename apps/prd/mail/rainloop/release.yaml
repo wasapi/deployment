@@ -59,10 +59,12 @@ spec:
       path: /
       hosts:
         - webmail.lambert.tf
+        - webmail.ratiarisolo.fr
       tls:
       - hosts:
         - webmail.lambert.tf
-        secretName: webmail-lambert-tf
+        - webmail.ratiarisolo.fr
+        secretName: webmail
     
     persistence:
       enabled: true
