@@ -1,0 +1,69 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: rainloop
+  namespace: mail
+spec:
+  interval: 1m
+  url: https://github.com/geek-cookbook/helm-rainloop
+  ref:
+    tag: rainloop-1.0.8
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmChart
+metadata:
+  name: rainloop
+  namespace: mail
+spec:
+  chart: ./charts/rainloop
+  sourceRef:
+    name: rainloop
+    kind: GitRepository
+  interval: 10m
+  reconcileStrategy: Revision
+  values:
+    replicaCount: 1
+    
+    image:
+      repository: hardware/rainloop
+      tag: latest
+      pullPolicy: IfNotPresent
+    
+    container:
+      port: 8888
+      volumes:
+        data:
+          path: /rainloop/data
+    
+    service:
+      type: ClusterIP
+      port: 80
+      targetPort: 8888
+    
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+      path: /
+      hosts:
+        - webmail.lambert.tf
+      tls:
+      - hosts:
+        - webmail.lambert.tf
+        secretName: webmail-lambert-tf
+    
+    persistence:
+      enabled: true
+      storageClass: "longhorn"
+      accessMode: ReadWriteOnce
+      size: 500Mi
+    
+    psp:
+      create: "false"
+    
+    serviceAccount:
+      create: true
+      name: rainloop
