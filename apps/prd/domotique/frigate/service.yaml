@@ -1,0 +1,36 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frigate
+  labels:
+    app: frigate
+spec:
+  ports:
+    - name: frigate
+      protocol: TCP
+      port: 80
+      targetPort: 5000
+    - name: rtmp
+      protocol: TCP
+      port: 1935
+      targetPort: 1935
+  selector:
+    app: frigate
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mqtt
+  labels:
+    app: mqtt
+spec:
+  ports:
+    - name: mqtt
+      protocol: TCP
+      port: 1883
+      targetPort: 1883
+  selector:
+    app: mqtt
+  type: ClusterIP

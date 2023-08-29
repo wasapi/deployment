@@ -1,0 +1,77 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frigate
+spec:
+  selector:
+    matchLabels:
+      app: frigate
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: frigate
+    spec:
+      containers:
+      - image: ghcr.io/blakeblackshear/frigate:0.12.1
+        name: frigate
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+          name: http
+        volumeMounts:
+        - mountPath: "/media/frigate"
+          name: frigate
+        - name: config
+          mountPath: "/config/"
+          readOnly: true
+        - mountPath: /dev/shm
+          name: dshm
+        - mountPath: /tmp/cache
+          name: cache
+        envFrom:
+        - secretRef:
+            name: frigate
+        env:
+        - name: TZ
+          value: "Europe/Paris"
+      volumes:
+      - name: frigate
+        persistentVolumeClaim:
+          claimName: frigate
+      - name: config
+        configMap:
+          name: frigate
+      - name: dshm
+        emptyDir:
+          medium: Memory
+      - name: cache
+        emptyDir:
+          medium: Memory
+          sizeLimit: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqtt
+spec:
+  selector:
+    matchLabels:
+      app: mqtt
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mqtt
+    spec:
+      containers:
+      - image: eclipse-mosquitto:1.6
+        name: mqtt
+        ports:
+        - containerPort: 1883
+          protocol: TCP

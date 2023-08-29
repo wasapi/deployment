@@ -1,0 +1,26 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frigate
+  namespace: default
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: default-frigate-auth@kubernetescrd
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: frigate.lambert.tf
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frigate
+                port:
+                  number: 80
+  tls:
+    - secretName: frigate-lambert-tf
+      hosts:
+        - frigate.lambert.tf
