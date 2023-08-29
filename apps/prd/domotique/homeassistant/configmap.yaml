@@ -10,7 +10,7 @@ data:
         - https://hass.lambert.tf
       use_x_forwarded_for: true
       trusted_proxies:
-        - 10.42.0.0/24
+        - 192.168.0.0/16
 
     # Loads default set of integrations. Do not remove.
     default_config:
