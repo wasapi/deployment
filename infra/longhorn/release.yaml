@@ -18,10 +18,10 @@ spec:
   values:
     longhornManager:
       nodeSelector:
-        node-role.kubernetes.io/master: "true"
+        storage: "true"
     longhornUI:
       nodeSelector:
-        node-role.kubernetes.io/master: "true"
+        storage: "true"
     longhornDriver:
       nodeSelector:
         storage: "true"
