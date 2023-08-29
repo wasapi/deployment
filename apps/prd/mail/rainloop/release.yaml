@@ -39,6 +39,11 @@ spec:
       volumes:
         data:
           path: /rainloop/data
+
+    dnsConfig:
+      options:
+      - name: ndots
+        value: "1"
     
     service:
       type: ClusterIP
