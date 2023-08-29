@@ -15,3 +15,8 @@ spec:
         name: helm-repo-cert-manager
         namespace: flux-system
       version: v1.12.0
+  values:
+    podDnsConfig:
+      options:
+      - name: ndots
+        value: "1"
