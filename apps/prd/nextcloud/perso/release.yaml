@@ -1,0 +1,81 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  interval: 5m0s
+  url: https://nextcloud.github.io/helm/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: perso
+  namespace: nextcloud
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: nextcloud
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+      version: 4.6.4
+  values:
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        kubernetes.io/ingress.class: traefik
+        traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+      path: /
+      tls:
+      - hosts:
+        - perso.lambert.tf
+        secretName: perso-lambert-tf
+    nextcloud:
+      host: perso.lambert.tf
+    phpClientHttpsFix:
+      enabled: true
+    cronjob:
+      enabled: true
+    redis:
+      enabled: true
+      auth:
+        existingSecret: perso-redis
+        existingSecretPasswordKey: password
+      master:
+        persistence:
+          size: 1Gi
+      replica:
+        persistence:
+          size: 1Gi
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      existingSecret:
+        enabled: true
+        secretName: perso-mariadb
+        usernameKey: mariadb-username
+        passwordKey: mariadb-password
+    mariadb:
+      enabled: true
+      auth:
+        existingSecret: perso-mariadb
+      primary:
+        persistence:
+          enabled: true
+          storageClass: "longhorn"
+          size: 2Gi
+    persistence:
+      enabled: true
+      storageClass: "longhorn"
+      accessMode: ReadWriteOnce
+      size: 2Gi
+      nextcloudData:
+        enabled: true
+        storageClass: "longhorn"
+        accessMode: ReadWriteOnce
+        size: 200Gi
+

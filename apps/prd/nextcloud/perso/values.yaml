@@ -1,0 +1,39 @@
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+  path: /
+  tls:
+  - hosts:
+    - perso.lambert.tf
+    secretName: perso-lambert-tf
+nextcloud:
+  host: perso.lambert.tf
+phpClientHttpsFix:
+  enabled: true
+redis:
+  enabled: true
+  auth:
+    existingSecret: perso-redis
+    existingSecretPasswordKey: password
+internalDatabase:
+  enabled: false
+mariadb:
+  enabled: true
+  auth:
+    existingSecret: perso-mariadb
+  primary:
+    persistence:
+      enabled: true
+      storageClass: "longhorn"
+persistence:
+  enabled: true
+  storageClass: "longhorn"
+  accessMode: ReadWriteOnce
+  size: 8Gi
+  nextcloudData:
+    storageClass: "longhorn"
+    accessMode: ReadWriteOnce
+    size: 200Gi

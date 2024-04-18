@@ -17,7 +17,7 @@ spec:
     spec:
       nodeName: k8s-01
       containers:
-      - image: ghcr.io/blakeblackshear/frigate:0.12.1
+      - image: ghcr.io/blakeblackshear/frigate:0.13.2
         name: frigate
         ports:
         - containerPort: 5000
