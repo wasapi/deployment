@@ -33,12 +33,10 @@ data:
       entree1:
         ffmpeg:
           inputs:
-            - path: rtmp://192.168.1.31/bcs/channel0_main.bcs?channel=0&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_01_main
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_01_main
               roles:
                 - record
-            - path: rtmp://192.168.1.31/bcs/channel0_ext.bcs?channel=0&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_01_sub
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_01_sub
               roles:
                 - detect
         detect:
@@ -91,12 +89,10 @@ data:
       entree2:
         ffmpeg:
           inputs:
-            - path: rtmp://192.168.1.31/bcs/channel1_main.bcs?channel=1&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_02_main
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_02_main
               roles:
                 - record
-            - path: rtmp://192.168.1.31/bcs/channel1_ext.bcs?channel=1&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_02_sub
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_02_sub
               roles:
                 - detect
         detect:
@@ -166,12 +162,10 @@ data:
       jardin1:
         ffmpeg:
           inputs:
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_01_main
-            - path: rtmp://192.168.1.32/bcs/channel0_main.bcs?channel=0&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_01_main
               roles:
                 - record
-            - path: rtmp://192.168.1.32/bcs/channel0_ext.bcs?channel=0&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_01_sub
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_01_sub
               roles:
                 - detect
         detect:
@@ -240,12 +234,10 @@ data:
       jardin2:
         ffmpeg:
           inputs:
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_02_main
-            - path: rtmp://192.168.1.32/bcs/channel1_main.bcs?channel=1&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_02_main
               roles:
                 - record
-            - path: rtmp://192.168.1.32/bcs/channel1_ext.bcs?channel=1&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_02_sub
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_02_sub
               roles:
                 - detect
         detect:
@@ -325,12 +317,10 @@ data:
           mode: objects
         ffmpeg:
           inputs:
-            - path: rtmp://192.168.1.33/bcs/channel0_main.bcs?channel=0&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.33:554/h264Preview_01_main
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.33:554/h264Preview_01_main
               roles:
                 - record
-            - path: rtmp://192.168.1.33/bcs/channel0_ext.bcs?channel=0&stream=0&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
-            #- path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.33:554/h264Preview_01_sub
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.33:554/h264Preview_01_sub
               roles:
                 - detect
         detect:
