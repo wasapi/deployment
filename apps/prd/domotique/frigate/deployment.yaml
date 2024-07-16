@@ -26,9 +26,11 @@ spec:
         volumeMounts:
         - mountPath: "/media/frigate"
           name: frigate
-        - name: config
+        - name: frigateconfig
           mountPath: "/config/"
-          #readOnly: true
+        - name: config
+          mountPath: "/config/config.yml"
+          subPath: "config.yml"
         - mountPath: /dev/shm
           name: dshm
         - mountPath: /tmp/cache
@@ -45,6 +47,9 @@ spec:
       - name: frigate
         persistentVolumeClaim:
           claimName: frigate
+      - name: frigateconfig
+        persistentVolumeClaim:
+          claimName: frigateconfig
       - name: config
         configMap:
           name: frigate
