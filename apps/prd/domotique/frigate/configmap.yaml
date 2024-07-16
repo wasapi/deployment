@@ -29,14 +29,56 @@ data:
       input_args: -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -flags low_delay -strict experimental -analyzeduration 1000M -probesize 1000M -rw_timeout "5000000"
       output_args:
         record: preset-record-generic-audio-aac
+    go2rtc:
+      streams:
+        entree1:
+          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+        entree1_sub:
+          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+        entree2:
+          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+        entree2_sub:
+          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+        jardin1:
+          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+        jardin1_sub:
+          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+        jardin2:
+          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+        jardin2_sub:
+          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+        terrasse:
+          - "ffmpeg:http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+        terrasse_sub:
+          - "ffmpeg:http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+    camera_groups:
+      entree:
+        cameras:
+          - entree1
+          - entree2
+        icon: door
+        order: 0
+      jardin:
+        cameras:
+          - jardin1
+          - jardin2
+        icon: trees
+        order: 1
+      terrasse:
+        cameras:
+          - terrasse
+        icon: box
+        order: 2
     cameras:
       entree1:
         ffmpeg:
           inputs:
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_01_main
+            - path: rtsp://127.0.0.1:8554/entree1
+              input_args: preset-rtsp-restream
               roles:
                 - record
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_01_sub
+            - path: rtsp://127.0.0.1:8554/entree1_sub
+              input_args: preset-rtsp-restream
               roles:
                 - detect
         detect:
@@ -89,10 +131,12 @@ data:
       entree2:
         ffmpeg:
           inputs:
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_02_main
+            - path: rtsp://127.0.0.1:8554/entree2
+              input_args: preset-rtsp-restream
               roles:
                 - record
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.31:554/h264Preview_02_sub
+            - path: rtsp://127.0.0.1:8554/entree2_sub
+              input_args: preset-rtsp-restream
               roles:
                 - detect
         detect:
@@ -162,10 +206,12 @@ data:
       jardin1:
         ffmpeg:
           inputs:
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_01_main
+            - path: rtsp://127.0.0.1:8554/jardin1
+              input_args: preset-rtsp-restream
               roles:
                 - record
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_01_sub
+            - path: rtsp://127.0.0.1:8554/jardin1_sub
+              input_args: preset-rtsp-restream
               roles:
                 - detect
         detect:
@@ -234,10 +280,12 @@ data:
       jardin2:
         ffmpeg:
           inputs:
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_02_main
+            - path: rtsp://127.0.0.1:8554/jardin2
+              input_args: preset-rtsp-restream
               roles:
                 - record
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.32:554/h264Preview_02_sub
+            - path: rtsp://127.0.0.1:8554/jardin2_sub
+              input_args: preset-rtsp-restream
               roles:
                 - detect
         detect:
@@ -317,10 +365,12 @@ data:
           mode: objects
         ffmpeg:
           inputs:
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.33:554/h264Preview_01_main
+            - path: rtsp://127.0.0.1:8554/terrasse
+              input_args: preset-rtsp-restream
               roles:
                 - record
-            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@192.168.1.33:554/h264Preview_01_sub
+            - path: rtsp://127.0.0.1:8554/terrasse_sub
+              input_args: preset-rtsp-restream
               roles:
                 - detect
         detect:
