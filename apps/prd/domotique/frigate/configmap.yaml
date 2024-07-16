@@ -80,9 +80,9 @@ data:
             days: 30
             mode: motion
           events:
-            required_zones:
-              - cour
-              - horschamp
+            #required_zones:
+            #  - cour
+            #  - horschamp
             retain:
               default: 10
               mode: active_objects
@@ -151,11 +151,11 @@ data:
             days: 1
             mode: motion
           events:
-            required_zones:
-              - allee
-              - jardin
-              - entree
-              - porte
+            #required_zones:
+            #  - allee
+            #  - jardin
+            #  - entree
+            #  - porte
             retain:
               default: 5
               mode: active_objects
@@ -223,11 +223,11 @@ data:
             days: 1
             mode: motion
           events:
-            required_zones:
-              - jardin
-              - allee
-              - terrasse_1
-              - horschamp
+            #required_zones:
+            #  - jardin
+            #  - allee
+            #  - terrasse_1
+            #  - horschamp
             retain:
               default: 5
               mode: active_objects
@@ -303,12 +303,12 @@ data:
             days: 1
             mode: motion
           events:
-            required_zones:
-              - jardin
-              - allee
-              - abri
-              - terrasse_1
-              - horschamp
+            #required_zones:
+            #  - jardin
+            #  - allee
+            #  - abri
+            #  - terrasse_1
+            #  - horschamp
             retain:
               default: 5
               mode: active_objects
@@ -358,9 +358,9 @@ data:
             days: 1
             mode: motion
           events:
-            required_zones:
-              - terrasse_2
-              - horschamp
+            #required_zones:
+            #  - terrasse_2
+            #  - horschamp
             retain:
               default: 5
               mode: active_objects
