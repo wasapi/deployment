@@ -13,8 +13,7 @@ data:
       ov:
         type: openvino
         device: AUTO
-        model:
-          path: /openvino-model/ssdlite_mobilenet_v2.xml
+        model_path: /openvino-model/ssdlite_mobilenet_v2.xml
     model:
       width: 300
       height: 300
@@ -22,35 +21,36 @@ data:
       input_pixel_format: bgr
       labelmap_path: /openvino-model/coco_91cl_bkgr.txt
     birdseye:
-      enabled: True
+      enabled: true
       mode: continuous
     ffmpeg:
       hwaccel_args: preset-vaapi
-      input_args: -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -flags low_delay -strict experimental -analyzeduration 1000M -probesize 1000M -rw_timeout "5000000"
+      input_args: -avoid_negative_ts make_zero -fflags +genpts+discardcorrupt -flags low_delay
+        -strict experimental -analyzeduration 1000M -probesize 1000M -rw_timeout "5000000"
       output_args:
         record: preset-record-generic-audio-aac
     go2rtc:
       streams:
         entree1:
-          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+          - ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus
         entree1_sub:
-          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+          - ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
         entree2:
-          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+          - ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus
         entree2_sub:
-          - "ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+          - ffmpeg:http://192.168.1.31/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
         jardin1:
-          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+          - ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus
         jardin1_sub:
-          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+          - ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
         jardin2:
-          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+          - ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel1_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus
         jardin2_sub:
-          - "ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+          - ffmpeg:http://192.168.1.32/flv?port=1935&app=bcs&stream=channel1_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
         terrasse:
-          - "ffmpeg:http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus"
+          - ffmpeg:http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}#video=copy#audio=copy#audio=opus
         terrasse_sub:
-          - "ffmpeg:http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}"
+          - ffmpeg:http://192.168.1.33/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_RTSP_USER}&password={FRIGATE_RTSP_PASSWORD}
     camera_groups:
       entree:
         cameras:
@@ -110,24 +110,28 @@ data:
               - cat
               - car
         snapshots:
-          enabled: True
-          timestamp: True
-          bounding_box: True
+          enabled: true
+          timestamp: true
+          bounding_box: true
           required_zones:
             - cour
             - horschamp
         record:
-          enabled: True
+          enabled: true
           retain:
             days: 30
             mode: motion
-          events:
-            #required_zones:
-            #  - cour
-            #  - horschamp
+          alerts:
             retain:
-              default: 10
-              mode: active_objects
+              days: 10
+          detections:
+            retain:
+              days: 10
+        review:
+          alerts:
+            required_zones: cour
+          detections:
+            required_zones: cour
       entree2:
         ffmpeg:
           inputs:
@@ -181,28 +185,38 @@ data:
               - dog
               - bicycle
         snapshots:
-          enabled: True
-          timestamp: True
-          bounding_box: True
+          enabled: true
+          timestamp: true
+          bounding_box: true
           required_zones:
             - allee
             - jardin
             - entree
             - porte
         record:
-          enabled: True
+          enabled: true
           retain:
             days: 1
             mode: motion
-          events:
-            #required_zones:
-            #  - allee
-            #  - jardin
-            #  - entree
-            #  - porte
+          alerts:
             retain:
-              default: 5
-              mode: active_objects
+              days: 5
+          detections:
+            retain:
+              days: 5
+        review:
+          alerts:
+            required_zones:
+              - allee
+              - jardin
+              - porte
+              - entree
+          detections:
+            required_zones:
+              - allee
+              - jardin
+              - entree
+              - porte
       jardin1:
         ffmpeg:
           inputs:
@@ -255,28 +269,36 @@ data:
               - cat
               - bird
         snapshots:
-          enabled: True
-          timestamp: True
-          bounding_box: True
+          enabled: true
+          timestamp: true
+          bounding_box: true
           required_zones:
             - jardin
             - allee
             - terrasse_1
             - horschamp
         record:
-          enabled: True
+          enabled: true
           retain:
             days: 1
             mode: motion
-          events:
-            #required_zones:
-            #  - jardin
-            #  - allee
-            #  - terrasse_1
-            #  - horschamp
+          alerts:
             retain:
-              default: 5
-              mode: active_objects
+              days: 5
+          detections:
+            retain:
+              days: 5
+        review:
+          alerts:
+            required_zones:
+              - jardin
+              - allee
+              - terrasse_1
+          detections:
+            required_zones:
+              - jardin
+              - terrasse_1
+              - allee
       jardin2:
         ffmpeg:
           inputs:
@@ -301,7 +323,8 @@ data:
             - bird
         zones:
           jardin:
-            coordinates: 616,159,520,360,331,360,230,265,149,239,0,257,0,120,98,135,64,193,0,257,139,240,196,104,238,97,275,0
+            coordinates:
+              616,159,520,360,331,360,230,265,149,239,0,257,0,120,98,135,64,193,0,257,139,240,196,104,238,97,275,0
             objects:
               - person
               - dog
@@ -336,9 +359,9 @@ data:
               - cat
               - bird
         snapshots:
-          enabled: True
-          timestamp: True
-          bounding_box: True
+          enabled: true
+          timestamp: true
+          bounding_box: true
           required_zones:
             - jardin
             - allee
@@ -346,20 +369,29 @@ data:
             - terrasse_1
             - horschamp
         record:
-          enabled: True
+          enabled: true
           retain:
             days: 1
             mode: motion
-          events:
-            #required_zones:
-            #  - jardin
-            #  - allee
-            #  - abri
-            #  - terrasse_1
-            #  - horschamp
+          alerts:
             retain:
-              default: 5
-              mode: active_objects
+              days: 5
+          detections:
+            retain:
+              days: 5
+        review:
+          alerts:
+            required_zones:
+              - jardin
+              - allee
+              - abri
+              - terrasse_1
+          detections:
+            required_zones:
+              - jardin
+              - allee
+              - abri
+              - terrasse_1
       terrasse:
         birdseye:
           mode: objects
@@ -396,21 +428,26 @@ data:
             objects:
               - person
         snapshots:
-          enabled: True
-          timestamp: True
-          bounding_box: True
+          enabled: true
+          timestamp: true
+          bounding_box: true
           required_zones:
             - terrasse_2
             - horschamp
         record:
-          enabled: True
+          enabled: true
           retain:
             days: 1
             mode: motion
-          events:
-            #required_zones:
-            #  - terrasse_2
-            #  - horschamp
+          alerts:
             retain:
-              default: 5
-              mode: active_objects
+              days: 5
+          detections:
+            retain:
+              days: 5
+        review:
+          alerts:
+            required_zones: terrasse_2
+          detections:
+            required_zones: terrasse_2
+    version: 0.15-1
