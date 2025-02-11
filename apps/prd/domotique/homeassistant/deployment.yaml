@@ -18,6 +18,8 @@ spec:
       containers:
         - name: homeassistant
           image: homeassistant/home-assistant
+          securityContext:
+            privileged: true
           ports:
           - containerPort: 8123
             protocol: TCP
@@ -29,6 +31,8 @@ spec:
             mountPath: "/config/configuration.yaml"
             subPath: "configuration.yaml"
             readOnly: false
+          - name: zigbee
+            mountPath: /dev/ttyUSB0
       volumes:
       - name: data
         persistentVolumeClaim:
@@ -36,6 +40,9 @@ spec:
       - name: config
         configMap:
           name: homeassistant
+      - name: zigbee
+        hostPath:
+          path: /dev/ttyUSB0
       dnsConfig:
         options:
         - name: ndots
