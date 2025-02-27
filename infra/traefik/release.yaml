@@ -16,6 +16,11 @@ spec:
         namespace: flux-system
       version: v24.0.0
   values:
+    ports:
+      web:
+        hostPort: 80
+      websecure:
+        hostPort: 443
     priorityClassName: "system-cluster-critical"
     image:
       repository: "rancher/mirrored-library-traefik"
