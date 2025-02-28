@@ -3,12 +3,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: epee
-  namespace: default
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
 spec:
-  ingressClassName: traefik
+  ingressClassName: nginx
   rules:
     - host: epee77.org
       http:

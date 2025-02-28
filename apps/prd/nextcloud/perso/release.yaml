@@ -25,10 +25,9 @@ spec:
   values:
     ingress:
       enabled: true
+      className: nginx
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
-        kubernetes.io/ingress.class: traefik
-        traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
       path: /
       tls:
       - hosts:
