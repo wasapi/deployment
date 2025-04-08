@@ -21,7 +21,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: nextcloud
-      version: 5.5.6
+      version: 6.6.9
   values:
     ingress:
       enabled: true
