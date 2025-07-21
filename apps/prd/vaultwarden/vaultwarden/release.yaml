@@ -33,11 +33,11 @@ spec:
           attachmentsPath: "/data/attachments"
     yubico:
       clientId: "113338"
-      existingSecret: vaultwarden
+      existingSecret: vaultwarden-creds
       secretKey:
         existingSecretKey: YUBICO_SECRET_KEY
     adminToken:
-      existingSecret: vaultwarden
+      existingSecret: vaultwarden-creds
       existingSecretKey: ADMIN_TOKEN
     ingress:
       enabled: true
