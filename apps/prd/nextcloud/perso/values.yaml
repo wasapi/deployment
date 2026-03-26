@@ -15,6 +15,9 @@ phpClientHttpsFix:
   enabled: true
 redis:
   enabled: true
+  image:
+    repository: bitnamilegacy/redis
+    tag: 8.2.1-debian-12-r0
   auth:
     existingSecret: perso-redis
     existingSecretPasswordKey: password
